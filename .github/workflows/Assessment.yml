@@ -50,13 +50,22 @@ jobs:
 
 
 
-      - name: Run Calculator
+          - name: Run Calculator
         run: |
+          # Führe den Calculator aus und fange die Ausgabe ein
           output=$(java -jar Leistungsnachweis/build/libs/*.jar)
           echo "$output"
+          
+          # Extrahiere den Statuscode aus der Ausgabe
           status_code=$(echo "$output" | grep -oP 'HTTP Status Code: [0-9]+' | cut -d " " -f 3)
+
+          # Gebe den Statuscode aus und speichere ihn in GitHub-Umgebungsvariablen
           echo "status_code=$status_code" >> $GITHUB_ENV
+
+          # Überprüfe den Statuscode
           if [ "$status_code" != "200" ]; then
-          echo "Status code not found or is not 200, exiting with error."
-          exit 1
+            echo "Status code not found or is not 200, exiting with error."
+            exit 1
           fi
+
+          echo "Data successfully sent to the API."
