@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run_service_and_test_app:
+  Test_Service:
     runs-on: ubuntu-latest
 
     steps:
@@ -43,9 +43,9 @@ jobs:
         run: chmod +x ./Leistungsnachweis/gradlew
 
 
-      - name: Build gradle
+      - name: Build gradle with shadowJar
         run: |
-          ./gradlew clean shadowJar
+          ./Leistungsnachweis/gradlew clean shadowJar
 
       - name: Run Calculator
         run: |
