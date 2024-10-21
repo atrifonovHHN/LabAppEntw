@@ -52,17 +52,11 @@ jobs:
 
       - name: Run Calculator
         run: |
-          # Capture output from the Java app
           output=$(java -jar Leistungsnachweis/build/libs/*.jar)
           echo "$output"
-           # Extract the status code from the output
-          status_code=$(echo "$output" | grep -oP '"code":[0-9]*' | cut -d ":" -f 2)
-
-          # Output the status code to the environment
+          status_code=$(echo "$output" | grep -oP 'HTTP Status Code: [0-9]+' | cut -d " " -f 3)
           echo "status_code=$status_code" >> $GITHUB_ENV
-
-          # Check if the status code is 200
           if [ "$status_code" != "200" ]; then
-            echo "Status code not found or is not 200, exiting with error."
-            exit 1
+          echo "Status code not found or is not 200, exiting with error."
+          exit 1
           fi
