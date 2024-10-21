@@ -1,4 +1,4 @@
-name: build-push
+name: Assessment_Test
 
 on:
   push:
@@ -40,7 +40,8 @@ jobs:
           curl -f http://localhost:8080/health || exit 1
 
       - name: Grant Execute Permission for Gradle Wrapper
-        run: chmod +x ./gradlew
+        run: chmod +x ./Leistungsnachweis/gradlew
+
 
       - name: Build gradle
         run: |
