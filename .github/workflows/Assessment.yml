@@ -43,10 +43,11 @@ jobs:
         run: chmod +x ./Leistungsnachweis/gradlew
 
 
-      - name: Build gradle with shadowJar
+      - name: Build gradle
+        working-directory: ./Leistungsnachweis
         run: |
-          ./Leistungsnachweis/gradlew clean shadowJar
-          working-directory: ./Leistungsnachweis
+            ./gradlew clean shadowJar
+
 
 
       - name: Run Calculator
