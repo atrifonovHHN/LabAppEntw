@@ -1,4 +1,4 @@
-name: build-push
+name: Assessment_Test
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run_service_and_test_app:
+  Test_Service:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,11 +40,15 @@ jobs:
           curl -f http://localhost:8080/health || exit 1
 
       - name: Grant Execute Permission for Gradle Wrapper
-        run: chmod +x ./gradlew
+        run: chmod +x ./Leistungsnachweis/gradlew
+
 
       - name: Build gradle
+        working-directory: ./Leistungsnachweis
         run: |
-          ./gradlew clean shadowJar
+            ./gradlew clean shadowJar
+
+
 
       - name: Run Calculator
         run: |
