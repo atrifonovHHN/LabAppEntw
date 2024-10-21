@@ -12,15 +12,15 @@ import com.google.gson.Gson;
 /**
  * The UseTimeCalculator class calculates the total runtime for each customer based on
  * a dataset of events. It processes both start and stop events to compute the
- * total runtime associated with each customer
+ * total runtime associated with each customer.
  */
 public class UseTimeCalculator {
 
     /**
-     * Calculates the total runtime for each customer based on the provided dataset of events
+     * Calculates the total runtime for each customer based on the provided dataset of events.
      *
-     * @param dataset The dataset containing a list of events, including start and stop events
-     * @return A map where the keys are customer IDs and the values are the total runtime for each customer in milliseconds
+     * @param dataset The dataset containing a list of events, including start and stop events.
+     * @return A map where the keys are customer IDs and the values are the total runtime for each customer in milliseconds.
      */
     public Map<String, Long> calculateTotalRuntime(Dataset dataset) {
         Map<String, Long> customerRuntimeMap = new HashMap<>();
@@ -63,11 +63,12 @@ public class UseTimeCalculator {
     }
 
     /**
-     * Sends the calculated results to the specified URL
+     * Sends the calculated results to the specified URL.
      *
-     * @param results The map containing customer IDs and their total runtime
+     * @param results The map containing customer IDs and their total runtime.
+     * @return The HTTP status code returned from the server.
      */
-    public void sendResults(Map<String, Long> results) {
+    public int sendResults(Map<String, Long> results) {
         try {
             HttpClient client = HttpClient.newHttpClient();
             Gson gson = new Gson();
@@ -82,24 +83,27 @@ public class UseTimeCalculator {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            int statusCode = response.statusCode();
 
-            if (response.statusCode() == 200) {
+            if (statusCode == 200) {
                 System.out.println("Results successfully sent.");
             } else {
-                System.out.println("Failed to send results: " + response.statusCode());
+                System.out.println("Failed to send results: " + statusCode);
             }
+            return statusCode;
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
     }
 
     /**
-     * The main method that serves as the entry point for the application
-     * It fetches the dataset, calculates the total runtimes for each customer, and sends the results
+     * The main method that serves as the entry point for the application.
+     * It fetches the dataset, calculates the total runtimes for each customer, and sends the results.
      */
     public static void main(String[] args) {
         try {
-            Thread.sleep(5000); // 5 Sekunden warten
+            Thread.sleep(5000); //
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -116,7 +120,9 @@ public class UseTimeCalculator {
                         ", Total Runtime: " + entry.getValue() + " ms");
             }
 
-            calculator.sendResults(totalRuntimes);
+            int statusCode = calculator.sendResults(totalRuntimes);
+
+            System.out.println("HTTP Status Code: " + statusCode);
         } else {
             System.out.println("Failed to fetch dataset.");
         }
