@@ -53,7 +53,7 @@ jobs:
       - name: Run Calculator
         run: |
           # Capture output from the Java app
-          output=$(java -jar build/libs/*.jar)
+          output=$(java -jar Leistungsnachweis/build/libs/*.jar)
           echo "$output"
            # Extract the status code from the output
           status_code=$(echo "$output" | grep -oP '"code":[0-9]*' | cut -d ":" -f 2)
