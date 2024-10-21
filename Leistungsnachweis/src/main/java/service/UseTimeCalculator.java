@@ -98,8 +98,6 @@ public class UseTimeCalculator {
      * It fetches the dataset, calculates the total runtimes for each customer, and sends the results
      */
     public static void main(String[] args) {
-        System.out.println("Main method is running...");
-
         try {
             Thread.sleep(5000); // 5 Sekunden warten
         } catch (InterruptedException e) {
