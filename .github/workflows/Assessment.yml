@@ -46,6 +46,8 @@ jobs:
       - name: Build gradle with shadowJar
         run: |
           ./Leistungsnachweis/gradlew clean shadowJar
+          working-directory: ./Leistungsnachweis
+
 
       - name: Run Calculator
         run: |
