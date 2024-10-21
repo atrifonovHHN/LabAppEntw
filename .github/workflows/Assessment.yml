@@ -50,7 +50,7 @@ jobs:
 
 
 
-          - name: Run Calculator
+      - name: Run Calculator
         run: |
           # Führe den Calculator aus und fange die Ausgabe ein
           output=$(java -jar Leistungsnachweis/build/libs/*.jar)
