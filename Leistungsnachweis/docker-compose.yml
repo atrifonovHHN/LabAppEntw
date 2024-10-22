@@ -8,7 +8,7 @@ services:
     networks:
       - myNetwork
 
-  java-app:
+  Calculator_App:
     build: .
     container_name: Calculator
     depends_on:
